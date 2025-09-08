@@ -4,13 +4,14 @@
   "description": "Frontend для чат приложения",
   "main": "index.html",
   "scripts": {
-    "dev": "sass --watch scss:dist --style=expanded",
-    "build": "sass scss:dist --style=compressed && tsc",
     "build:ts": "tsc",
     "build:css": "sass scss:dist --style=compressed",
     "watch:ts": "tsc --watch",
     "serve": "npx http-server . -p 3000 -o",
-    "dev:full": "concurrently \"npm run watch:ts\" \"npm run dev\""
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "chat",
@@ -20,11 +21,14 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.35.0",
     "@types/node": "^24.3.1",
-    "concurrently": "^9.2.1",
-    "http-server": "^14.1.1",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2",
     "sass": "^1.69.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.43.0"
   }
 }
