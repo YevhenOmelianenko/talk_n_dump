@@ -7,7 +7,6 @@
     "build:ts": "tsc",
     "build:css": "sass scss:dist --style=compressed",
     "watch:ts": "tsc --watch",
-    "serve": "npx http-server . -p 3000 -o",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "format": "prettier --write .",
