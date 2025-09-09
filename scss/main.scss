@@ -63,8 +63,26 @@ body {
     align-items: center;
     gap: 10px;
     
-    .username {
+    #usernameInput {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      color: white;
+      padding: 6px 10px;
+      font-size: 0.9rem;
       font-weight: 500;
+      max-width: 150px;
+      transition: $transition;
+      
+      &:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
     }
     
     .status {
@@ -195,7 +213,7 @@ body {
     }
   }
   
-  #sendButton {
+  #sendBtn {
     padding: 12px 24px;
     background: $primary-color;
     color: white;

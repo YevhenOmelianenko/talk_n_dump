@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="dist/main.css">
 </head>
 <body>
-    <div class="chat-container">
+    <div class="chat-container" id="chatContainer">
         <header class="chat-header">
             <h1>Chat App</h1>
             <div class="user-info">
-                <span class="username">Пользователь</span>
+                <input type="text" id="usernameInput" placeholder="Введите имя" value="Пользователь" maxlength="20">
                 <div class="status online"></div>
             </div>
         </header>
@@ -23,7 +23,7 @@
             
             <div class="message-input-container">
                 <input type="text" id="messageInput" placeholder="Введите сообщение..." maxlength="500">
-                <button id="sendButton">Отправить</button>
+                <button id="sendBtn">Отправить</button>
             </div>
         </main>
     </div>
