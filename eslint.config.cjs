@@ -8,7 +8,9 @@ const prettier = require("eslint-config-prettier");
 /** @type {import("eslint").Linter.FlatConfig[]} */
 module.exports = [
   // Ignore build artifacts and config files
-  { ignores: ["dist/**", "node_modules/**", "eslint.config.cjs", ".eslintrc.cjs", ".eslintignore"] },
+  {
+    ignores: ["dist/**", "node_modules/**", "eslint.config.cjs", ".eslintrc.cjs", ".eslintignore"],
+  },
 
   // Base JS recommended rules
   js.configs.recommended,
@@ -34,7 +36,7 @@ module.exports = [
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
       // Do not block on any in this project
       "@typescript-eslint/no-explicit-any": "off",
@@ -44,5 +46,3 @@ module.exports = [
   // Turn off stylistic rules that conflict with Prettier
   prettier,
 ];
-
-
