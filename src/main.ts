@@ -1,4 +1,4 @@
-declare const uuidv4: () => string;
+import { v4 as uuidv4 } from "uuid";
 
 type MessageObject = {
   id: string;
@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const usernameInput = document.getElementById("usernameInput") as HTMLInputElement;
   const messageInput = document.getElementById("messageInput") as HTMLInputElement;
   const sendBtn = document.getElementById("sendBtn");
+  const emojiBtn = document.getElementById("emojiBtn");
+  const emojiPicker = document.getElementById("emojiPicker");
 
-  if (chatContainer && usernameInput && messageInput && sendBtn) {
+  if (chatContainer && usernameInput && messageInput && sendBtn && emojiBtn && emojiPicker) {
     const isOwnMessage = (mesObj: MessageObject) => {
       const myIdsStr = localStorage.getItem("myIds");
       const myIds = myIdsStr ? JSON.parse(myIdsStr) : [];
@@ -94,6 +96,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     messageInput.addEventListener("keyup", async (e) => {
       if (e.key === "Enter") {
         await sendMessage();
+      }
+    });
+
+    // Эмоджи функциональность
+    const emojiPickerElement = emojiPicker.querySelector("emoji-picker") as any;
+
+    emojiBtn.addEventListener("click", () => {
+      const isVisible = emojiPicker.style.display !== "none";
+      emojiPicker.style.display = isVisible ? "none" : "block";
+    });
+
+    emojiPickerElement.addEventListener("emoji-click", (event: any) => {
+      const emoji = event.detail.unicode;
+      const cursorPosition = messageInput.selectionStart || 0;
+      const textBefore = messageInput.value.substring(0, cursorPosition);
+      const textAfter = messageInput.value.substring(cursorPosition);
+      messageInput.value = textBefore + emoji + textAfter;
+      messageInput.focus();
+      messageInput.setSelectionRange(cursorPosition + emoji.length, cursorPosition + emoji.length);
+      emojiPicker.style.display = "none";
+    });
+
+    // Закрытие панели эмоджи при клике вне её
+    document.addEventListener("click", (e) => {
+      if (!emojiBtn.contains(e.target as Node) && !emojiPicker.contains(e.target as Node)) {
+        emojiPicker.style.display = "none";
       }
     });
   }
