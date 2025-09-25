@@ -14,6 +14,8 @@ export class ChatView {
     this.sendBtn = document.getElementById("sendBtn") as HTMLElement;
     this.emojiBtn = document.getElementById("emojiBtn") as HTMLElement;
     this.emojiPicker = document.getElementById("emojiPicker") as HTMLElement;
+    
+    this.initializeEmojiPicker();
   }
 
   onReady = (func: () => void) => {
@@ -82,5 +84,58 @@ export class ChatView {
 
   waitAnimationFrame = async () => {
     await new Promise((resolve) => requestAnimationFrame(resolve));
+  };
+
+  private initializeEmojiPicker = () => {
+    // Обработчик клика на кнопку эмоджи
+    this.emojiBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.toggleEmojiPicker();
+    });
+
+    // Обработчик выбора эмоджи
+    const emojiPickerElement = this.emojiPicker.querySelector("emoji-picker");
+    if (emojiPickerElement) {
+      emojiPickerElement.addEventListener("emoji-click", (event: any) => {
+        const emoji = event.detail.unicode;
+        this.insertEmoji(emoji);
+        this.hideEmojiPicker();
+      });
+    }
+
+    // Закрытие пикера при клике вне его
+    document.addEventListener("click", (e) => {
+      if (!this.emojiPicker.contains(e.target as Node) && !this.emojiBtn.contains(e.target as Node)) {
+        this.hideEmojiPicker();
+      }
+    });
+  };
+
+  private toggleEmojiPicker = () => {
+    if (this.emojiPicker.style.display === "none" || this.emojiPicker.style.display === "") {
+      this.showEmojiPicker();
+    } else {
+      this.hideEmojiPicker();
+    }
+  };
+
+  private showEmojiPicker = () => {
+    this.emojiPicker.style.display = "block";
+  };
+
+  private hideEmojiPicker = () => {
+    this.emojiPicker.style.display = "none";
+  };
+
+  private insertEmoji = (emoji: string) => {
+    const currentValue = this.messageInput.value;
+    const cursorPosition = this.messageInput.selectionStart || 0;
+    const newValue = currentValue.slice(0, cursorPosition) + emoji + currentValue.slice(cursorPosition);
+    this.messageInput.value = newValue;
+    
+    // Устанавливаем курсор после вставленного эмоджи
+    const newCursorPosition = cursorPosition + emoji.length;
+    this.messageInput.setSelectionRange(newCursorPosition, newCursorPosition);
+    this.messageInput.focus();
   };
 }

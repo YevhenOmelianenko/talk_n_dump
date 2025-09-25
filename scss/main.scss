@@ -193,6 +193,7 @@ body {
   border-top: 1px solid #e9ecef;
   display: flex;
   gap: 10px;
+  position: relative;
 
   #messageInput {
     flex: 1;
@@ -238,6 +239,51 @@ body {
       cursor: not-allowed;
       transform: none;
     }
+  }
+}
+
+// Стили для эмоджи-пикера
+.emoji-btn {
+  padding: 12px;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: $border-radius;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: $transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+
+  &:hover {
+    background: #e9ecef;
+    border-color: $primary-color;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.emoji-picker-container {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+
+  emoji-picker {
+    --emoji-picker-border-radius: 0;
+    --emoji-picker-background-color: white;
+    --emoji-picker-border-color: #e9ecef;
+    --emoji-picker-shadow: none;
   }
 }
 
