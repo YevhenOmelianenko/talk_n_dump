@@ -1,4 +1,5 @@
 const path = require("path");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
@@ -22,7 +23,16 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    plugins: [],
+    plugins: [
+      new Dotenv({
+        path: "./.env",
+        safe: false,
+        allowEmptyValues: true,
+        systemvars: true,
+        silent: false,
+        defaults: false,
+      }),
+    ],
     devServer: {
       static: {
         directory: path.join(__dirname, "."), // Служим файлы из корня проекта

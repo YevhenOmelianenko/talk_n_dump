@@ -1,4 +1,4 @@
-import { MessageObject } from "./ChatModel";
+import { MessageObject } from "./models/ChatModel";
 export class ChatView {
   private chatContainer;
   private usernameInput;
@@ -14,7 +14,7 @@ export class ChatView {
     this.sendBtn = document.getElementById("sendBtn") as HTMLElement;
     this.emojiBtn = document.getElementById("emojiBtn") as HTMLElement;
     this.emojiPicker = document.getElementById("emojiPicker") as HTMLElement;
-    
+
     this.initializeEmojiPicker();
   }
 
@@ -105,7 +105,10 @@ export class ChatView {
 
     // Закрытие пикера при клике вне его
     document.addEventListener("click", (e) => {
-      if (!this.emojiPicker.contains(e.target as Node) && !this.emojiBtn.contains(e.target as Node)) {
+      if (
+        !this.emojiPicker.contains(e.target as Node) &&
+        !this.emojiBtn.contains(e.target as Node)
+      ) {
         this.hideEmojiPicker();
       }
     });
@@ -130,9 +133,10 @@ export class ChatView {
   private insertEmoji = (emoji: string) => {
     const currentValue = this.messageInput.value;
     const cursorPosition = this.messageInput.selectionStart || 0;
-    const newValue = currentValue.slice(0, cursorPosition) + emoji + currentValue.slice(cursorPosition);
+    const newValue =
+      currentValue.slice(0, cursorPosition) + emoji + currentValue.slice(cursorPosition);
     this.messageInput.value = newValue;
-    
+
     // Устанавливаем курсор после вставленного эмоджи
     const newCursorPosition = cursorPosition + emoji.length;
     this.messageInput.setSelectionRange(newCursorPosition, newCursorPosition);
