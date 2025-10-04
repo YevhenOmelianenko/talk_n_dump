@@ -29,7 +29,12 @@ export class ChatView {
     this.chatContainer.style.visibility = "visible";
   };
 
-  isAtDown = () => this.chatContainer.scrollTop === this.chatContainer.scrollHeight;
+  isAtDown = () => {
+    return (
+      Math.round(this.chatContainer.scrollTop) + this.chatContainer.clientHeight ===
+      Math.round(this.chatContainer.scrollHeight)
+    );
+  };
   scrollToDown = async () => {
     this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
   };

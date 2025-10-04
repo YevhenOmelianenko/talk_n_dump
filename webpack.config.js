@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
     entry: "./src/main.ts",
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: isProduction ? "[name].[contenthash].js" : "[name].js",
+      filename: "[name].js",
       clean: false, // Не очищаем папку, чтобы не удалить CSS файлы
     },
     resolve: {

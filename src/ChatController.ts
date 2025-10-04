@@ -23,29 +23,31 @@ export class ChatController {
       this.model.sendMessage(message);
     });
 
-    // setInterval(this.loadChat, 1000);
     this.model.onNewMessage(async (message: MessageObject) => {
-      this.displayMessages([message]);
+      const isAtDown = this.view.isAtDown();
+
+      await this.displayMessages([message]);
+
+      if (isAtDown) {
+        this.view.scrollToDown();
+      }
     });
   };
 
   private loadChat = async () => {
     const messages = await this.model.loadMessages();
     this.view.clearMessages();
-    this.displayMessages(messages);
+    await this.displayMessages(messages);
   };
 
   private displayMessages = async (messages: MessageObject[]) => {
     messages.forEach((message) => {
       if (this.model.isOwnMessage(message)) {
-        this.view.displayOtherMessage(message);
+        this.view.displayOwnMessage(message);
       } else {
         this.view.displayOtherMessage(message);
       }
     });
     await this.view.waitAnimationFrame();
-    if (this.view.isAtDown()) {
-      this.view.scrollToDown();
-    }
   };
 }
